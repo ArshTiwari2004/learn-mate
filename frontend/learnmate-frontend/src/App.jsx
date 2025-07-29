@@ -7,7 +7,7 @@ import UploadTest from './pages/UploadTest';
 import AskQuestions from './pages/AskQuestions';
 import GenerateSchedule from './pages/GenerateSchedule';
 import AddContent from './pages/AddContent';
-import PracticeQuestions from './pages/PracticeQuestions';
+import PracticeQuestion from './pages/Practicequestion';
 import SearchContent from './pages/SearchContent';
 import Analytics from './pages/Analytics';
 
@@ -24,7 +24,7 @@ const App = () => {
             <Route path="/ask-questions" element={<AskQuestions />} />
             <Route path="/generate-schedule" element={<GenerateSchedule />} />
             <Route path="/add-content" element={<AddContent />} />
-            <Route path="/practice-questions" element={<PracticeQuestions />} />
+            <Route path="/practice-questions" element={<PracticeQuestion />} />
             <Route path="/search-content" element={<SearchContent />} />
             <Route path="/analytics" element={<Analytics />} />
           </Routes>

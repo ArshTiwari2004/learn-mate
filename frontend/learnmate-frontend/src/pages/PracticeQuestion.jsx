@@ -3,7 +3,7 @@ import { useApi } from '../context/ApiContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorAlert from '../components/ErrorAlert';
 
-const PracticeQuestions = () => {
+const PracticeQuestion = () => {
   const { makeRequest, loading, error, setError } = useApi();
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -416,4 +416,4 @@ const PracticeQuestions = () => {
   );
 };
 
-export default PracticeQuestions;
+export default PracticeQuestion;
