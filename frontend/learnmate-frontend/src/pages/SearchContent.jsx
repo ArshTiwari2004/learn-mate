@@ -63,7 +63,7 @@ const SearchContent = () => {
       )
     };
 
-    const { data } = await makeRequest('/search-content', 'POST', searchParams);
+    const { data } = await makeRequest('/search-content', 'GET', searchParams);
 
     if (data) {
       setSearchResults(data.results || []);

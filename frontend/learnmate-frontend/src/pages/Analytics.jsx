@@ -14,7 +14,7 @@ const Analytics = () => {
   }, [timeRange]);
 
   const fetchAnalytics = async () => {
-    const { data } = await makeRequest('/analytics', 'GET', {
+    const { data } = await makeRequest('/database-stats', 'GET', {
       time_range: timeRange
     });
 

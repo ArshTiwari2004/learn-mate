@@ -1,18 +1,20 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, status
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-from typing import List, Dict, Optional
 import os
 import shutil
 import uuid
-from datetime import datetime
+from datetime import date, datetime
+from typing import List, Dict, Optional, Literal
+
+# Third-party imports
+from fastapi import FastAPI, UploadFile, File, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field, validator
 
 # Import our services
 from services.pdf_parser import PDFParser
 from services.vector_service import VectorService
 from services.llm_service import LLMService
-from services.scheduler import SchedulerService
+from services.schedular import SchedulerService
 from models.student import StudentProfile, TestResult, WeakArea, RevisionSchedule
 from utils.embeddings import EmbeddingUtils
 
@@ -51,11 +53,39 @@ class QueryRequest(BaseModel):
     difficulty_level: Optional[str] = "intermediate"
     learning_style: Optional[str] = "visual"
 
+
+
 class ScheduleRequest(BaseModel):
     student_id: str
-    weak_areas: List[Dict]
+    exam_date: date
+    daily_study_hours: int = Field(alias="daily_study_hours")
+    difficulty_level: Literal["beginner", "intermediate", "advanced"]
+    learning_style: Literal["visual", "auditory", "kinesthetic"]
+    focus_areas: List[str] = []
+
+    # derived fields
+    weak_areas: List[dict] = []
     study_time: int = 60
     days: int = 7
+
+    @validator("weak_areas", always=True)
+    def generate_weak_areas(cls, v, values):
+        focus_areas = values.get("focus_areas", [])
+        return [{"topic": area} for area in focus_areas]  
+
+
+    @validator("study_time", always=True)
+    def compute_study_time(cls, v, values):
+        return values.get("daily_study_hours", 4) * 60  # hours to minutes
+
+    @validator("days", always=True)
+    def compute_days(cls, v, values):
+        exam_date = values.get("exam_date")
+        if not exam_date:
+            return 7
+        days_left = (exam_date - date.today()).days
+        return max(days_left, 1)
+
 
 class ContentUploadResponse(BaseModel):
     message: str
@@ -330,7 +360,7 @@ async def add_educational_content(
             chunk_id = vector_service.add_educational_content(
                 content=chunk,
                 metadata=chunk_metadata,
-                content_id=f"{content_id}_chunk_{i}"
+                content_id=f"{content_id}chunk{i}"
             )
             chunk_ids.append(chunk_id)
         
@@ -478,7 +508,7 @@ async def internal_error_handler(request, exc):
         content={"message": "Internal server error", "status": "error"}
     )
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     import uvicorn
     
     print("🚀 Starting Personalized Learning Copilot API...")

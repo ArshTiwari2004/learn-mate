@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class LLMService:
-    def __init__(self, use_gemini: bool = True):
+    def _init_(self, use_gemini: bool = True):
         """Initialize LLM service with Gemini or OpenAI"""
         self.use_gemini = use_gemini
         
@@ -19,7 +19,8 @@ class LLMService:
                 raise ValueError("GOOGLE_API_KEY not found in environment variables")
             
             genai.configure(api_key=api_key)
-            self.model = genai.GenerativeModel('gemini-pro')
+            self.model = genai.GenerativeModel('gemini-2.5-flash')
+
             print("Initialized with Google Gemini")
         else:
             # Fallback to OpenAI (if you want to keep this option)
@@ -193,11 +194,11 @@ class LLMService:
         Additional Context: {context}
         
         Structure your explanation with:
-        1. **Clear Definition**: What is {topic}?
-        2. **Key Points**: Main concepts to understand
-        3. **Examples**: Real-world applications or examples
-        4. **Common Mistakes**: What students often get wrong
-        5. **Study Tips**: How to master this concept
+        1. *Clear Definition*: What is {topic}?
+        2. *Key Points*: Main concepts to understand
+        3. *Examples*: Real-world applications or examples
+        4. *Common Mistakes*: What students often get wrong
+        5. *Study Tips*: How to master this concept
         
         Make it engaging and easy to understand. Use analogies if helpful.
         """

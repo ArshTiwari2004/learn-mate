@@ -68,7 +68,7 @@ const AddContent = () => {
       return;
     }
 
-    const { data } = await makeRequest('/add-content-url', 'POST', {
+    const { data } = await makeRequest('/add-educational-content', 'POST', {
       url: formData.url,
       subject: formData.subject,
       topic: formData.topic,

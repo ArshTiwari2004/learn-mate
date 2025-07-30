@@ -38,7 +38,7 @@ const PracticeQuestion = () => {
       return;
     }
 
-    const { data } = await makeRequest('/generate-questions', 'POST', {
+    const { data } = await makeRequest('/generate-practice-questions', 'POST', {
       subject: generationParams.subject,
       topic: generationParams.topic,
       difficulty_level: generationParams.difficulty,
