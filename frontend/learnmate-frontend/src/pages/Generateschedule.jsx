@@ -13,7 +13,7 @@ const GenerateSchedule = () => {
   const [schedule, setSchedule] = useState(null);
 
   const focusAreaOptions = [
-    'Math', 'Physics', 'Chemistry', 'Biology', 
+    'Math', 'Physics', 'Chemistry', 'Biology',
     'History', 'Literature', 'Computer Science'
   ];
 
@@ -37,35 +37,34 @@ const GenerateSchedule = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.examDate) {
+      setError("Exam date is required");
+      return;
+    }
+
+    const today = new Date();
+    const examDate = new Date(formData.examDate);
+    const days = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+
+    if (days <= 0) {
+      setError("Please choose a future exam date");
+      return;
+    }
+
+    const payload = {
+      weak_areas: formData.focusAreas,
+      study_time: formData.dailyHours,
+      days: days
+    };
+
     try {
-      if (!formData.examDate) {
-        setError("Exam date is required");
-        return;
-      }
-
-      const today = new Date();
-      const examDate = new Date(formData.examDate);
-      const days = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
-
-      if (days <= 0) {
-        setError("Please choose a future exam date");
-        return;
-      }
-
-      const payload = {
-        weak_areas: formData.focusAreas,
-        study_time: formData.dailyHours,
-        days: days
-      };
-
       const { data, error: apiError } = await makeRequest('/generate-schedule', 'POST', payload);
-      console.log(data);
-      if (apiError) {
-        setError(apiError.message || 'Failed to generate schedule');
+      if (apiError || !data.schedule) {
+        setError(apiError?.message || 'Failed to generate schedule');
         return;
       }
 
-      setSchedule(data);
+      setSchedule(data.schedule);
       setError(null);
     } catch (err) {
       setError(err.message || 'An unexpected error occurred');
@@ -129,17 +128,21 @@ const GenerateSchedule = () => {
         </button>
       </form>
 
-      {schedule && schedule.schedule && (
+      {schedule && (
         <div className="mt-8 bg-gray-100 p-4 rounded-lg space-y-4">
           <h2 className="text-xl font-semibold">📆 Your Schedule</h2>
-          {schedule.schedule.map((day, idx) => (
-            <div key={idx} className="border p-3 bg-white rounded">
+          {schedule.map((day, idx) => (
+            <div key={idx} className="border p-3 bg-white rounded shadow-sm">
               <h3 className="font-bold text-blue-700 mb-1">Day {idx + 1}</h3>
-              {day.topics?.map((topic, i) => (
-                <div key={i} className="text-sm text-gray-700 ml-4">
-                  🔹 {topic.topic} ({topic.study_method}) – {topic.time_allocated} min
-                </div>
-              ))}
+              {Array.isArray(day.topics) && day.topics.length > 0 ? (
+                day.topics.map((topic, i) => (
+                  <div key={i} className="text-sm text-gray-700 ml-4">
+                    🔹 <strong>{topic.topic}</strong> ({topic.study_method}) – {topic.time_allocated} min
+                  </div>
+                ))
+              ) : (
+                <div className="text-sm text-gray-500 ml-4">No topics assigned</div>
+              )}
             </div>
           ))}
         </div>
