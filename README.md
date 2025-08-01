@@ -85,7 +85,7 @@ Gemini via LangChain (Analysis & Plan Generation)
 ## 🚀 Installation
 
 ```bash
-git clone https://github.com/yourusername/learnmate.git
+git clone https://github.com/priyanshi0609/LearnMate.git
 cd learnmate
 pip install -r requirements.txt
 ```
@@ -95,9 +95,10 @@ Ensure your `.env` contains:
 GOOGLE_API_KEY=your-key-here
 ```
 
-To run:
+To run (Backend)
 
 ```bash
+cd backend
 $env:PYTHONPATH="."; uvicorn app:app --reload
 ```
 
