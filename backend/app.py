@@ -1,3 +1,4 @@
+
 import os
 import shutil
 import uuid
@@ -205,8 +206,6 @@ async def check_answer(
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to check answer: {str(e)}")
-
-
 
 @app.get("/search-content")
 async def search_content(query: str = Query(...), topic: Optional[str] = "", difficulty: str = "intermediate"):
