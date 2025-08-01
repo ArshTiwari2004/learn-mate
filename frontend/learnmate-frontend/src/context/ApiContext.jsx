@@ -11,7 +11,7 @@ export const useApi = () => {
   return context;
 };
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://learnmate-kjg7.onrender.com';
 
 export const ApiProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);

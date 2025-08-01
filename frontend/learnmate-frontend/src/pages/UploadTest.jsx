@@ -7,7 +7,7 @@ const UploadTest = () => {
   const [results, setResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://learnmate-kjg7.onrender.com';
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];

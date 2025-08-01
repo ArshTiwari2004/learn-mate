@@ -26,12 +26,11 @@ app = FastAPI(
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can restrict this in production
+    allow_origins=["http://localhost:5173", "https://learnmate-kjg7.onrender.com"],  # <--- allows all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # Initialize services
 llm_service = LLMService(use_gemini=True)
 pdf_parser = PDFParser()
