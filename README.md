@@ -45,7 +45,7 @@
 | Vector Search     | ChromaDB / Pinecone                            |
 | Backend Logic     | Python, LangChain Agents & Tools               |
 | File Handling     | Pandas, PyMuPDF (for PDF parsing)              |
-| UI                | Streamlit (lightweight, fast prototyping)      |
+| UI                | React and Tailwind CSS    |
 | Embeddings        | OpenAI / HuggingFace Sentence Transformers     |
 
 ---
