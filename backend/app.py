@@ -26,7 +26,7 @@ app = FastAPI(
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://learnmate-kjg7.onrender.com"],  # <--- allows all origins
+    allow_origins=["http://localhost:5173", "https://learnmate-kjg7.onrender.com","learn-mate-omega.vercel.app"],  # <--- allows all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
