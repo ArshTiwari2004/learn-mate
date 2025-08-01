@@ -7,7 +7,7 @@ import UploadTest from './pages/UploadTest';
 import AskQuestions from './pages/AskQuestions';
 import StudyScheduleGenerator from './pages/Generateschedule';
 import AddContent from './pages/AddContent';
-import PracticeQuestion from './pages/Practicequestion';
+import PracticeQuestion from './pages/PracticeQuestion';
 import SearchContent from './pages/SearchContent';
 import Analytics from './pages/Analytics';
 
