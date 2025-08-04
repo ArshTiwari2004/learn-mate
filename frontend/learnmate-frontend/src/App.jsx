@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -13,24 +13,48 @@ import Analytics from './pages/Analytics';
 
 import { ApiProvider } from './context/ApiContext';
 
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  RedirectToSignIn,
+} from '@clerk/clerk-react';
+
 const App = () => {
   return (
-    <ApiProvider>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/upload-test" element={<UploadTest />} />
-            <Route path="/ask-questions" element={<AskQuestions />} />
-            <Route path="/generate-schedule" element={<StudyScheduleGenerator />} />
-            <Route path="/add-content" element={<AddContent />} />
-            <Route path="/practice-questions" element={<PracticeQuestion />} />
-            <Route path="/search-content" element={<SearchContent />} />
-            <Route path="/analytics" element={<Analytics />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </ApiProvider>
+    <Routes>
+      {/* Route for the sign-in form itself */}
+      <Route path="/sign-in" element={<SignIn routing="path" path="/sign-in" />} />
+
+      {/* Protect everything else */}
+      <Route
+        path="*"
+        element={
+          <>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+
+            <SignedIn>
+              <ApiProvider>
+                <Layout>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/upload-test" element={<UploadTest />} />
+                    <Route path="/ask-questions" element={<AskQuestions />} />
+                    <Route path="/generate-schedule" element={<StudyScheduleGenerator />} />
+                    <Route path="/add-content" element={<AddContent />} />
+                    <Route path="/practice-questions" element={<PracticeQuestion />} />
+                    <Route path="/search-content" element={<SearchContent />} />
+                    <Route path="/analytics" element={<Analytics />} />
+                  </Routes>
+                </Layout>
+              </ApiProvider>
+            </SignedIn>
+          </>
+        }
+      />
+    </Routes>
   );
 };
 
