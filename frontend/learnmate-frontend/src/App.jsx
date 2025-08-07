@@ -10,6 +10,7 @@ import AddContent from './pages/AddContent';
 import PracticeQuestion from './pages/PracticeQuestion';
 import SearchContent from './pages/SearchContent';
 import Analytics from './pages/Analytics';
+import Onboarding from './pages/Onboarding';
 
 import { ApiProvider } from './context/ApiContext';
 
@@ -20,13 +21,18 @@ import {
   RedirectToSignIn,
 } from '@clerk/clerk-react';
 
+import RequireOnboarding from './components/RequireOnboarding';
+
 const App = () => {
   return (
     <Routes>
-      {/* Route for the sign-in form itself */}
-      <Route path="/sign-in" element={<SignIn routing="path" path="/sign-in" />} />
 
-      {/* Protect everything else */}
+      <Route path="/sign-in" element={<SignIn routing="path" path="/sign-in" redirectUrl="/onboarding" />} />
+
+      {/* Onboarding page (public to signed-in users) */}
+      <Route path="/onboarding" element={<Onboarding />} />
+
+     
       <Route
         path="*"
         element={
@@ -36,20 +42,22 @@ const App = () => {
             </SignedOut>
 
             <SignedIn>
-              <ApiProvider>
-                <Layout>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/upload-test" element={<UploadTest />} />
-                    <Route path="/ask-questions" element={<AskQuestions />} />
-                    <Route path="/generate-schedule" element={<StudyScheduleGenerator />} />
-                    <Route path="/add-content" element={<AddContent />} />
-                    <Route path="/practice-questions" element={<PracticeQuestion />} />
-                    <Route path="/search-content" element={<SearchContent />} />
-                    <Route path="/analytics" element={<Analytics />} />
-                  </Routes>
-                </Layout>
-              </ApiProvider>
+              <RequireOnboarding>
+                <ApiProvider>
+                  <Layout>
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/upload-test" element={<UploadTest />} />
+                      <Route path="/ask-questions" element={<AskQuestions />} />
+                      <Route path="/generate-schedule" element={<StudyScheduleGenerator />} />
+                      <Route path="/add-content" element={<AddContent />} />
+                      <Route path="/practice-questions" element={<PracticeQuestion />} />
+                      <Route path="/search-content" element={<SearchContent />} />
+                      <Route path="/analytics" element={<Analytics />} />
+                    </Routes>
+                  </Layout>
+                </ApiProvider>
+              </RequireOnboarding>
             </SignedIn>
           </>
         }

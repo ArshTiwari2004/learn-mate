@@ -44,7 +44,7 @@ class VectorService:
             
         try:
             embedding = self.embedder.generate_embedding(text).tolist()
-            doc_id = f"doc_{hash(text) & 0xFFFFFFFF}"  # Ensure positive ID
+            doc_id = f"doc_{hash(text) & 0xFFFFFFFF}" 
             
             self.collection.add(
                 documents=[text],
