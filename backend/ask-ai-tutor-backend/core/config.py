@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     FIREBASE_UNIVERSE_DOMAIN: str
 
     CHROMA_PERSIST_DIR: str = "./chroma_db"
-    ALLOWED_ORIGINS: list[str] = ["http://localhost:3000" , "http://localhost:5173" ]
+    ALLOWED_ORIGINS: list[str] = ["http://localhost:3000" , "http://localhost:5173","https://learn-mate-omega.vercel.app" ]
     EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"
 
     class Config:
