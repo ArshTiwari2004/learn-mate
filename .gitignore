@@ -6,4 +6,4 @@ env/
 __pycache__/    
 
 # Ignore ChromaDB database files
-backend/ask-ai-tutor-backend/chroma_db/
+.backend/ask-ai-tutor-backend/chroma_db/
