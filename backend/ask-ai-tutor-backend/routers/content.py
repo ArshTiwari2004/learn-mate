@@ -49,7 +49,7 @@ async def upload_pdf(file: UploadFile = File(...)):
                     "subject": "physics"
                 }
 
-                # Await add_document properly
+            
                 doc_id = await vector_service.add_document(text=text, metadata=metadata)
                 total_docs += 1
                 logger.debug(f"Added doc ID {doc_id} (chapter: {chapter}, page: {page_num})")
