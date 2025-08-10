@@ -154,18 +154,19 @@ const Layout = ({ children }) => {
       )}
     </div>
 
- 
-    <div className="ml-3 min-w-0">
-      <p className="text-sm font-medium text-gray-900 truncate">
-        {user?.firstName} {user?.lastName}
-      </p>
-      <p
-        className="text-xs text-gray-500 truncate max-w-[160px]"
-        title={user?.primaryEmailAddress?.emailAddress}
-      >
-        {user?.primaryEmailAddress?.emailAddress || 'No email provided'}
-      </p>
-    </div>
+
+<Link to="/profile" className="ml-3 min-w-0 block">
+  <p className="text-sm font-medium text-gray-900 truncate">
+    {user?.firstName} {user?.lastName}
+  </p>
+  <p
+    className="text-xs text-gray-500 truncate max-w-[160px]"
+    title={user?.primaryEmailAddress?.emailAddress}
+  >
+    {user?.primaryEmailAddress?.emailAddress || "No email provided"}
+  </p>
+</Link>
+
   </div>
 </div>
 

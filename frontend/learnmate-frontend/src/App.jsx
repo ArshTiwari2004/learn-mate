@@ -11,6 +11,7 @@ import PracticeQuestion from './pages/PracticeQuestion';
 import SearchContent from './pages/SearchContent';
 import Analytics from './pages/Analytics';
 import Onboarding from './pages/Onboarding';
+import Profile from './pages/Profile';
 
 import { ApiProvider } from './context/ApiContext';
 
@@ -54,6 +55,7 @@ const App = () => {
                       <Route path="/practice-questions" element={<PracticeQuestion />} />
                       <Route path="/search-content" element={<SearchContent />} />
                       <Route path="/analytics" element={<Analytics />} />
+                      <Route path="/profile" element={<Profile />} />
                     </Routes>
                   </Layout>
                 </ApiProvider>
