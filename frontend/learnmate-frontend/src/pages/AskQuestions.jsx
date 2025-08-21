@@ -169,6 +169,13 @@ const AskQuestions = () => {
                   }`}
                   onClick={() => setSelectedBook(book)}
                 >
+                  {book.imageUrl && (
+                    <img
+                      src={book.imageUrl}
+                      alt={book.title}
+                      className="w-full h-40 object-contain mb-3 rounded"
+                    />
+                  )}
                   <h3 className="font-bold">{book.title}</h3>
                   <p className="text-sm text-gray-600">Subject: {book.subject}</p>
                   <p className="text-sm text-gray-600">Class: {book.class}</p>
